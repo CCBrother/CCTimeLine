@@ -98,15 +98,15 @@ static NSInteger MaxLineCount = 5;
         }
         
         [_contentLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_titleLabel.mas_bottom).offset(10);
-            make.left.equalTo(_titleLabel);
+            make.top.equalTo(self->_titleLabel.mas_bottom).offset(10);
+            make.left.equalTo(self->_titleLabel);
             make.right.equalTo(self.contentView.mas_right).offset(-20);
         }];
         _contentLabel.preferredMaxLayoutWidth = maxLayoutWidth;
         
         [_bgView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_foldingBtn.mas_bottom).offset(10);
-            make.left.equalTo(_dateLabel);
+            make.top.equalTo(self->_foldingBtn.mas_bottom).offset(10);
+            make.left.equalTo(self->_dateLabel);
             make.right.equalTo(self.contentView.mas_right).offset(-20);
             make.bottom.equalTo(self.contentView.mas_bottom).offset(-36).priorityHigh();
         }];
@@ -114,8 +114,8 @@ static NSInteger MaxLineCount = 5;
         _foldingBtn.hidden = YES;
         _contentLabel.numberOfLines = 0;
         [_bgView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_contentLabel.mas_bottom).offset(20);
-            make.left.equalTo(_dateLabel);
+            make.top.equalTo(self->_contentLabel.mas_bottom).offset(20);
+            make.left.equalTo(self->_dateLabel);
             make.right.equalTo(self.contentView.mas_right).offset(-20);
             make.bottom.equalTo(self.contentView.mas_bottom).offset(-36).priorityHigh();
         }];
@@ -164,6 +164,7 @@ static NSInteger MaxLineCount = 5;
 - (void)bullAction:(UIButton *)sender {
     if (sender.selected || _bearBtn.selected) {
         [SVProgressHUD showInfoWithStatus:@"你已经点过了"];
+        [SVProgressHUD dismissWithDelay:1.f];
     }else {
         if ([self.delegate respondsToSelector:@selector(opinionWithCell:bullOrBear:)]) {
             [self.delegate opinionWithCell:self bullOrBear:OpinionTypeBull];
@@ -175,6 +176,7 @@ static NSInteger MaxLineCount = 5;
 - (void)bearAction:(UIButton *)sender {
     if (sender.selected || _bullBtn.selected) {
         [SVProgressHUD showInfoWithStatus:@"你已经点过了"];
+        [SVProgressHUD dismissWithDelay:1.f];
     }else {
         if ([self.delegate respondsToSelector:@selector(opinionWithCell:bullOrBear:)]) {
             [self.delegate opinionWithCell:self bullOrBear:OpinionTypeBear];
@@ -184,7 +186,8 @@ static NSInteger MaxLineCount = 5;
 
 // 分享
 - (void)shareAction:(UIButton *)sender {
-   [SVProgressHUD showInfoWithStatus:@"分享"];
+    [SVProgressHUD showInfoWithStatus:@"分享"];
+    [SVProgressHUD dismissWithDelay:1.f];
 }
 
 #pragma mark - Init methods
@@ -267,67 +270,67 @@ static NSInteger MaxLineCount = 5;
         make.top.equalTo(self.contentView.mas_top);
         make.bottom.equalTo(self.contentView.mas_bottom);
         make.width.mas_offset(0.5);
-        make.centerX.equalTo(_pointView);
+        make.centerX.equalTo(self->_pointView);
     }];
     
     //时间
     [_dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_pointView.mas_right).offset(23);
+        make.left.equalTo(self->_pointView.mas_right).offset(23);
         make.width.mas_offset(100);
         make.height.mas_offset(15);
-        make.centerY.equalTo(_pointView);
+        make.centerY.equalTo(self->_pointView);
     }];
     
     CGFloat maxLayoutWidth = SCREEN_WIDTH - 14 - 7 - 23 - 20;
     // 标题
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_dateLabel.mas_bottom).offset(15);
-        make.left.equalTo(_dateLabel);
+        make.top.equalTo(self->_dateLabel.mas_bottom).offset(15);
+        make.left.equalTo(self->_dateLabel);
         make.right.equalTo(self.contentView.mas_right).offset(-20);
     }];
     _titleLabel.preferredMaxLayoutWidth = maxLayoutWidth;
     
     // 内容
     [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_titleLabel.mas_bottom).offset(10);
-        make.left.equalTo(_titleLabel);
+        make.top.equalTo(self->_titleLabel.mas_bottom).offset(10);
+        make.left.equalTo(self->_titleLabel);
         make.right.equalTo(self.contentView.mas_right).offset(-20);
     }];
     _contentLabel.preferredMaxLayoutWidth = maxLayoutWidth;
     
     // 折叠
     [_foldingBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_contentLabel.mas_bottom).offset(5);
+        make.top.equalTo(self->_contentLabel.mas_bottom).offset(5);
         make.right.equalTo(self.contentView.mas_right).offset(-20);
         make.width.height.mas_offset(22);
     }];
     
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_foldingBtn.mas_bottom).offset(10);
-        make.left.equalTo(_dateLabel);
+        make.top.equalTo(self->_foldingBtn.mas_bottom).offset(10);
+        make.left.equalTo(self->_dateLabel);
         make.right.equalTo(self.contentView.mas_right).offset(-20);
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-36).priorityHigh();
     }];
     
     [_bullBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_bgView);
-        make.centerY.equalTo(_bgView);
+        make.left.equalTo(self->_bgView);
+        make.centerY.equalTo(self->_bgView);
         make.width.mas_equalTo(75);
         make.height.mas_equalTo(15);
     }];
     
     [_bearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(_bullBtn.mas_right).offset(15);
-        make.centerY.equalTo(_bgView);
+        make.left.equalTo(self->_bullBtn.mas_right).offset(15);
+        make.centerY.equalTo(self->_bgView);
         make.width.mas_equalTo(65);
-        make.height.equalTo(_bgView);
+        make.height.equalTo(self->_bgView);
     }];
     
     [_shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(_bgView);
-        make.centerY.equalTo(_bgView);
+        make.right.equalTo(self->_bgView);
+        make.centerY.equalTo(self->_bgView);
         make.width.mas_equalTo(75);
-        make.height.equalTo(_bgView);
+        make.height.equalTo(self->_bgView);
     }];
 }
 
